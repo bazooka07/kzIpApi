@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Ip-api.com demo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body > div { overflow-x: auto; }
+		table { border-collapse: collapse; }
+		thead tr { background-color: #4CAF50; color: #fff; }
+		tbody tr:nth-child(even) { background-color: #f2f2f2; }
+		tbody tr:hover { background-color: #444; color: #fff; }
+		td { white-space: nowrap; padding: 0 0.5rem; }
+		td:not(:last-of-type) { border-right: 1px solid #444; }
+		p { text-align: center; }
+	</style>
+</head>
+<body>
+	<div>
+		<table>
+			<thead id="thead">
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+	</div>
+	<p>More help at <a href="http://ip-api.com" rel="noreferrer nofollow" target="_blank">http://ip-api.com</a></p>
+	<script type="text/javascript">
+	const IPs = (function() { /*
+37.115.205.45
+146.185.223.154
+146.185.223.166
+146.185.223.177
+146.185.223.147
+146.185.223.132
+185.38.250.76
+146.185.223.163
+146.185.223.123
+8.8.8.8
+146.185.223.132
+198.11.132.250
+41.202.129.195
+5.194.254.153
+103.26.42.16
+158.69.197.22 The White House
+202.36.253.12
+200.68.105.160
+177.223.193.203
+37.115.205.45
+185.38.250.76
+185.194.141.58
+82.112.93.25 Reykjavík City Museum
+217.70.184.38
+213.186.33.4
+185.98.131.142
+*/ }).toString().match(/([1-9]\d{0,2}(?:\.[1-9]\d{0,2}){3})/g);
+
+	const fields = 'as city country countryCode isp lat lon org region regionName status timezone zip'.split(' ');
+
+	// query
+	var innerHTML = "<th>ip</th>\n";
+	const thead = document.getElementById('thead');
+	fields.forEach(function (col) {
+		innerHTML += "<th>" + col +"</th>";
+	});
+	thead.innerHTML = "<tr>" + innerHTML + "</tr>";
+
+	var queries = new Array();
+	const tbody = document.getElementById('tbody');
+	IPs.forEach(function (ipAddr) {
+		const row = document.createElement('TR');
+		row.innerHTML = '<td>' + ipAddr + '</td><td colspan="13"></td>';
+		tbody.appendChild(row);
+		queries.push({ query: ipAddr });
+	})
+	const data = JSON.stringify(queries);
+	console.log(data);
+
+	const XHR = new XMLHttpRequest();
+	XHR.onreadystatechange = function (event) {
+	    if (this.readyState === XMLHttpRequest.DONE) {
+	        if (this.status === 200) {
+				const infosList = JSON.parse(this.responseText);
+
+				tbody.innerHTML = '';
+				infosList.forEach(function (info) {
+					const row = document.createElement('TR');
+					var innerHTML = "<td>" + info.query + "</td>";
+					fields.forEach(function (field) {
+						innerHTML += "<td>" + info[field] + "</td>";
+					});
+					row.innerHTML = innerHTML;
+					tbody.appendChild(row);
+				});
+	        } else {
+	            console.log("Status de la réponse: %d (%s)", this.status, this.statusText);
+	        }
+	    }
+	}
+
+	XHR.open('POST', 'http://ip-api.com/batch', true);
+	XHR.setRequestHeader('Accept', '*/*');
+	XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	XHR.send(data);
+	</script>
+</body>
+</html>

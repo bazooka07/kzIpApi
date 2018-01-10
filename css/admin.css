@@ -1,0 +1,23 @@
+/* --------------- core/admin/comments.php ------------------ */
+form div.ipApi-logo {
+	position: absolute;
+	top: 1rem;
+	right : 1.5rem;
+}
+form div.ipApi-logo a {
+	display: block;
+}
+form div.ipApi-logo a img {
+	border: 2px solid transparent;
+}
+form div.ipApi-logo a:hover img {
+	border-color: green;
+}
+/* ------- comments.php ------------- */
+#comments-table td[data-ip] img.flag {
+	display: block;
+    margin-bottom: 0.8rem;
+}
+#comments-table td[data-ip] span.kz-flag {
+	background-color: #e8e8e8;
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+	<title><![CDATA[kzIpApi]]></title>
+	<author><![CDATA[J.P. Pourrez]]></author>
+	<version>0.5.0</version>
+	<date>23/12/2017</date>
+	<site>http://kazimentou.fr</site>
+	<description><![CDATA[Interroge le site http://ip-api.com pour fournir des indications géographiques pour un lot (batch) d'adresses IP. Choix de la langue pour le nom du pays.]]></description>
+</document>

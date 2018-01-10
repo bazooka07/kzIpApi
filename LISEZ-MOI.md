@@ -1,4 +1,4 @@
-Plugin pour le CMS PluXml
+Plugin pour le CMS [PluXml](http://pluxml.org)
 
 Récupère les informations de géo-localisation pour un lot d'adresses IP à partir du site http://ip-api.com.
 
